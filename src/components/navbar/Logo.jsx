@@ -8,7 +8,7 @@ import {
 import { mediaQueries } from '../../design/utils/designSystem';
 import { Dummy, Image } from '../../design/components/';
 
-const logo = require('../../resources/logo.svg');
+const logo = '';
 
 const styles = getObjectClassNames({
   logoClass: {

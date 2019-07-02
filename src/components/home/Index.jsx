@@ -6,7 +6,7 @@ import { FlexContainer, FlexItem, Flex, Image, Text } from '../../design/compone
 import { getObjectClassNames } from '../../design/utils/designUtils';
 import { mediaQueries } from '../../design/utils/designSystem';
 
-const image = require('../../resources/IMG_0213.jpg');
+const image = require('../../resources/kavivek.jpg');
 
 const classes = getObjectClassNames({
   container: {
