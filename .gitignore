@@ -1,0 +1,10 @@
+.idea/codeStyles/Project.xml
+.idea/codeStyles/codeStyleConfig.xml
+.idea/encodings.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/kavivek.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+.idea/*
+node_modules/

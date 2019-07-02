@@ -1,0 +1,9 @@
+export const IOS_APP_DOWNLOAD_LINK = 'https://itunes.apple.com/';
+export const ANDROID_APP_DOWNLOAD_LINK = 'https://play.google.com/';
+export const FACEBOOK_LINK = 'https://www.facebook.com/';
+export const TWITTER_LINK = 'https://twitter.com';
+export const INSTAGRAM_LINK = 'https://www.instagram.com/';
+export const APP_DOWNLOAD_LINK = '';
+export const TERMS_URL = '/terms-and-conditions';
+export const PRIVACY_POLICY_URL = '/privacy-policy';
+export const BASE_URL = 'https://www.farmbase.in';
