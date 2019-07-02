@@ -1,12 +1,22 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import FlipClock from 'x-react-flipclock'
+import FlipClock from 'x-react-flipclock';
+import AwesomeSlider from 'react-awesome-slider';
+import AwsSliderStyles from 'react-awesome-slider/src/styles';
 
-import { FlexContainer, FlexItem, Flex, Image, Text } from '../../design/components/index';
+import {
+  FlexContainer,
+  FlexItem,
+  Flex,
+  Image,
+  Text,
+  Dummy
+} from '../../design/components/index';
 import { getObjectClassNames } from '../../design/utils/designUtils';
 import { mediaQueries } from '../../design/utils/designSystem';
 
 const image = require('../../resources/kavivek.jpg');
+const venue = require('../../resources/venue.jpg');
 
 const classes = getObjectClassNames({
   container: {
@@ -28,7 +38,7 @@ const classes = getObjectClassNames({
   },
   title: {
     fontSize: 32,
-    fontFamily: 'Open Sans'
+    fontFamily: 'Alex Brush'
   },
   kavivek: {
     fontSize: 32,
@@ -38,7 +48,7 @@ const classes = getObjectClassNames({
   },
   date: {
     fontSize: 32,
-    fontFamily: 'Open Sans',
+    fontFamily: 'Alex Brush',
     marginBottom: 5
   },
   timer: {
@@ -56,6 +66,37 @@ const classes = getObjectClassNames({
     width: '100%',
     height: '100vh',
     backgroundColor: 'rgba(255,255,255,0.45)'
+  },
+  sliderImage: {
+    width: '100%',
+    objectFit: 'cover'
+  },
+  sectionTitleTextContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 140,
+    [mediaQueries.phone]: {
+      height: 80
+    }
+  },
+  sectionTitleText: {
+    fontSize: 32,
+    fontWeight: 500,
+    fontFamily: 'Alex Brush',
+    margin: '10px 0 5px 0'
+  },
+  extraContainer: {
+    flexDirection: 'column',
+    padding: '0px 100px 10px 100px',
+    [mediaQueries.phone]: {
+      padding: '0px 20px 10px 20px'
+    }
+  },
+  directions: {
+    textDecoration: 'underline',
+    fontSize: 16,
+    fontWeight: 500,
+    fontFamily: 'Open Sans'
   }
 });
 
@@ -70,35 +111,89 @@ export default class Index extends PureComponent {
       <Text className={classes.kavivek}>Kavita & Vivek</Text>
       <Text className={classes.date}>6th December</Text>
       <Flex className={classes.timer}>
-        <FlipClock
-          type={"countdown"}
-          count_to={"2019-12-06 00:00:00"}
-        />
+        <FlipClock type={'countdown'} count_to={'2019-12-06 00:00:00'} />
       </Flex>
     </Flex>
+  );
+
+  renderSectionTitle = text => (
+    <Flex className={classes.sectionTitleTextContainer}>
+      <Text className={classes.sectionTitleText}>{text}</Text>
+    </Flex>
+  );
+
+  renderSlider = () => {
+    return (
+      <Flex column>
+        {this.renderSectionTitle('Some moments to cherish')}
+        <AwesomeSlider cssModule={AwsSliderStyles}>
+          <Dummy data-src={image} />
+          <Dummy data-src={image} />
+          <Dummy data-src={image} />
+        </AwesomeSlider>
+      </Flex>
+    );
+  };
+
+  renderVenue = () => {
+    return (
+      <Flex column>
+        {this.renderSectionTitle('Venue of our wedding')}
+        <Image className={classes.sliderImage} src={venue} />
+      </Flex>
+    );
+  };
+
+  renderImage = () => (
+    <Image className={classes.bannerBackground} src={image} />
   );
 
   renderMobileView = () => {
     return (
       <Flex>
-        <Image className={classes.bannerBackground} src={image} />
+        {this.renderImage()}
         <Flex absoluteCenter className={classes.overlay}>
           {this.renderContent()}
         </Flex>
       </Flex>
-    )
+    );
   };
 
+  onDirectionClick = () =>
+    window
+      .open(
+        'https://www.google.com/maps/dir//Le+diamond,+Block+C,+Yamuna+Vihar,+Shahdara,+Delhi,+110053/@28.7000352,77.2648183,15.87z/data=!4m8!4m7!1m0!1m5!1m1!1s0x390cfc6d32a0f76d:0xa263eaebe2d0c0b6!2m2!1d77.2728498!2d28.6973764',
+        '_blank'
+      )
+      .focus();
+
   render() {
-    return window.onMobile() ? this.renderMobileView() : (
-      <FlexContainer className={classes.container}>
-        <FlexItem md={6} className={classes.card}>
-          {this.renderContent()}
-        </FlexItem>
-        <FlexItem md={6}>
-          <Image className={classes.bannerBackground} src={image} />
-        </FlexItem>
-      </FlexContainer>
+    return (
+      <Flex column>
+        {window.onMobile() ? (
+          this.renderMobileView()
+        ) : (
+          <FlexContainer className={classes.container}>
+            <FlexItem md={6} className={classes.card}>
+              {this.renderContent()}
+            </FlexItem>
+            <FlexItem md={6}>{this.renderImage()}</FlexItem>
+          </FlexContainer>
+        )}
+        <Flex className={classes.extraContainer}>
+          {this.renderSlider()}
+          <Flex css={{ height: 30 }} />
+          {this.renderVenue()}
+          <Flex absoluteCenter css={{width: '100%', height: 50}}>
+            <Text
+              onClick={this.onDirectionClick}
+              className={classes.directions}
+            >
+              Check directions on Google maps
+            </Text>
+          </Flex>
+        </Flex>
+      </Flex>
     );
   }
 }
