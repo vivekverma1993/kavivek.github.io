@@ -19,16 +19,41 @@ const image = require('../../resources/kavivek.jpg');
 const venue = require('../../resources/venue.jpg');
 
 const classes = getObjectClassNames({
+  mobileContainer: {
+    display: 'none',
+    [mediaQueries.tablet]: {
+      display: 'block'
+    },
+    [mediaQueries.phone]: {
+      display: 'block'
+    }
+  },
   container: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    [mediaQueries.tablet]: {
+      display: 'none'
+    },
+    [mediaQueries.phone]: {
+      display: 'none'
+    }
   },
   bannerBackground: {
     backgroundColor: '#fff',
     height: '100vh',
     objectFit: 'cover',
     width: '100%',
-    objectPosition: '0 0px',
-    [mediaQueries.phone]: {
+    objectPosition: '0px -140px',
+    [mediaQueries.lg]: {
+      objectPosition: '0px -100px',
+    },
+    [mediaQueries.md]: {
+      objectPosition: 'unset',
+    },
+    [mediaQueries.tablet]: {
+      objectPosition: '0px -160px',
+    },
+    [mediaQueries.small]: {
       objectPosition: 'unset'
     }
   },
@@ -107,9 +132,9 @@ export default class Index extends PureComponent {
 
   renderContent = () => (
     <Flex column absoluteCenter>
-      <Text className={classes.title}>We are getting Married</Text>
-      <Text className={classes.kavivek}>Kavita & Vivek</Text>
-      <Text className={classes.date}>6th December</Text>
+      <Text className={classes.title}>Kavita & Vivek</Text>
+      <Text className={classes.kavivek}>are getting Married</Text>
+      <Text className={classes.date}>On 6th December 2019</Text>
       <Flex className={classes.timer}>
         <FlipClock type={'countdown'} count_to={'2019-12-06 00:00:00'} />
       </Flex>
@@ -170,29 +195,33 @@ export default class Index extends PureComponent {
   render() {
     return (
       <Flex column>
-        {window.onMobile() ? (
-          this.renderMobileView()
-        ) : (
+        <Flex column>
+          <Flex className={classes.mobileContainer}>
+            {this.renderImage()}
+            <Flex absoluteCenter className={classes.overlay}>
+              {this.renderContent()}
+            </Flex>
+          </Flex>
           <FlexContainer className={classes.container}>
             <FlexItem md={6} className={classes.card}>
               {this.renderContent()}
             </FlexItem>
             <FlexItem md={6}>{this.renderImage()}</FlexItem>
           </FlexContainer>
-        )}
-        <Flex className={classes.extraContainer}>
-          {this.renderSlider()}
-          <Flex css={{ height: 30 }} />
-          {this.renderVenue()}
-          <Flex absoluteCenter css={{width: '100%', height: 50}}>
-            <Text
-              onClick={this.onDirectionClick}
-              className={classes.directions}
-            >
-              Check directions on Google maps
-            </Text>
-          </Flex>
         </Flex>
+        {/*<Flex className={classes.extraContainer}>*/}
+          {/*{this.renderSlider()}*/}
+          {/*<Flex css={{ height: 30 }} />*/}
+          {/*{this.renderVenue()}*/}
+          {/*<Flex absoluteCenter css={{ width: '100%', height: 50 }}>*/}
+            {/*<Text*/}
+              {/*onClick={this.onDirectionClick}*/}
+              {/*className={classes.directions}*/}
+            {/*>*/}
+              {/*Check directions on Google maps*/}
+            {/*</Text>*/}
+          {/*</Flex>*/}
+        {/*</Flex>*/}
       </Flex>
     );
   }

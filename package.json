@@ -73,5 +73,29 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@types/classnames": "2.x.x",
+    "@types/co": "4.x.x",
+    "@types/express": "4.x.x",
+    "@types/gh-pages": "2.x.x",
+    "@types/js-cookie": "2.x.x",
+    "@types/lodash": "4.x.x",
+    "@types/node-sass": "4.x.x",
+    "@types/prettier": "1.x.x",
+    "@types/prop-types": "15.x.x",
+    "@types/pubsub-js": "1.x.x",
+    "@types/qs": "6.x.x",
+    "@types/query-string": "6.x.x",
+    "@types/react": "16.x.x",
+    "@types/react-dom": "16.x.x",
+    "@types/react-helmet": "5.x.x",
+    "@types/react-onclickoutside": "6.x.x",
+    "@types/react-redux": "6.x.x",
+    "@types/react-router-dom": "4.x.x",
+    "@types/react-router-redux": "4.x.x",
+    "@types/react-scroll": "1.x.x",
+    "@types/recompose": "0.x.x",
+    "@types/redux-devtools-extension": "2.x.x"
+  }
 }
