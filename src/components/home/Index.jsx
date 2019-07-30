@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import FlipClock from 'x-react-flipclock';
 import AwesomeSlider from 'react-awesome-slider';
 import AwsSliderStyles from 'react-awesome-slider/src/styles';
 
@@ -10,7 +9,8 @@ import {
   Flex,
   Image,
   Text,
-  Dummy
+  Dummy,
+  CountDown
 } from '../../design/components/index';
 import { getObjectClassNames } from '../../design/utils/designUtils';
 import { mediaQueries } from '../../design/utils/designSystem';
@@ -136,7 +136,8 @@ export default class Index extends PureComponent {
       <Text className={classes.kavivek}>are getting Married</Text>
       <Text className={classes.date}>On 6th December 2019</Text>
       <Flex className={classes.timer}>
-        <FlipClock type={'countdown'} count_to={'2019-12-06 00:00:00'} />
+        <CountDown date={'2019-12-06 00:00:00'} />
+        {/*<FlipClock type={'countdown'} count_to={'2019-12-06 00:00:00'} />*/}
       </Flex>
     </Flex>
   );
