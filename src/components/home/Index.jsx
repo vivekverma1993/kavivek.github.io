@@ -18,6 +18,14 @@ import { mediaQueries } from '../../design/utils/designSystem';
 const image = require('../../resources/kavivek.jpg');
 const venue = require('../../resources/venue.jpg');
 
+const sliderImages = [
+  require('../../resources/slider-1.jpg'),
+  require('../../resources/slider-2.jpg'),
+  require('../../resources/slider-3.jpg'),
+  require('../../resources/slider-4.jpg'),
+  require('../../resources/slider-5.jpg')
+];
+
 const classes = getObjectClassNames({
   mobileContainer: {
     display: 'none',
@@ -45,13 +53,13 @@ const classes = getObjectClassNames({
     width: '100%',
     objectPosition: '0px -140px',
     [mediaQueries.lg]: {
-      objectPosition: '0px -100px',
+      objectPosition: 'unset'
     },
     [mediaQueries.md]: {
-      objectPosition: 'unset',
+      objectPosition: 'unset'
     },
     [mediaQueries.tablet]: {
-      objectPosition: '0px -160px',
+      objectPosition: '0px -160px'
     },
     [mediaQueries.small]: {
       objectPosition: 'unset'
@@ -99,29 +107,73 @@ const classes = getObjectClassNames({
   sectionTitleTextContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    height: 140,
+    display: 'none',
     [mediaQueries.phone]: {
-      height: 80
+      display: 'block'
     }
   },
   sectionTitleText: {
     fontSize: 32,
     fontWeight: 500,
     fontFamily: 'Alex Brush',
-    margin: '10px 0 5px 0'
+    margin: '10px 0 5px 0',
+    textAlign: 'center'
   },
   extraContainer: {
-    flexDirection: 'column',
-    padding: '0px 100px 10px 100px',
-    [mediaQueries.phone]: {
-      padding: '0px 20px 10px 20px'
-    }
+    flexDirection: 'column'
   },
   directions: {
     textDecoration: 'underline',
     fontSize: 16,
     fontWeight: 500,
     fontFamily: 'Open Sans'
+  },
+  togetherContainer: {
+    padding: 40,
+    textAlign: 'center',
+    [mediaQueries.phone]: {
+      padding: 10
+    }
+  },
+  together: {
+    fontSize: 32,
+    fontFamily: 'Alex Brush',
+    [mediaQueries.phone]: {
+      marginTop: 40
+    }
+  },
+  venueContainer: {
+    flexDirection: 'column',
+    padding: 40,
+    textAlign: 'center',
+    [mediaQueries.phone]: {
+      padding: 10
+    }
+  },
+  venue: {
+    fontSize: 32,
+    fontFamily: 'Alex Brush',
+    [mediaQueries.phone]: {
+      marginTop: 40
+    }
+  },
+  address: {
+    fontSize: 24,
+    fontFamily: 'Alex Brush',
+    cursor: 'pointer',
+    textDecoration: 'underline'
+  },
+  slideImage: {
+    objectPosition: '0px -200px'
+  },
+  sliderContainer: {
+    height: '100vh',
+    [mediaQueries.tablet]: {
+      height: '50vh'
+    },
+    [mediaQueries.phone]: {
+      height: '50vh'
+    }
   }
 });
 
@@ -136,8 +188,7 @@ export default class Index extends PureComponent {
       <Text className={classes.kavivek}>are getting Married</Text>
       <Text className={classes.date}>On 6th December 2019</Text>
       <Flex className={classes.timer}>
-        <CountDown date={'2019-12-06 00:00:00'} />
-        {/*<FlipClock type={'countdown'} count_to={'2019-12-06 00:00:00'} />*/}
+        <CountDown date={'2019-12-06T00:00:00.000+05:30'} />
       </Flex>
     </Flex>
   );
@@ -150,40 +201,46 @@ export default class Index extends PureComponent {
 
   renderSlider = () => {
     return (
-      <Flex column>
-        {this.renderSectionTitle('Some moments to cherish')}
-        <AwesomeSlider cssModule={AwsSliderStyles}>
-          <Dummy data-src={image} />
-          <Dummy data-src={image} />
-          <Dummy data-src={image} />
-        </AwesomeSlider>
-      </Flex>
+      <FlexContainer css={{ alignItems: 'center' }}>
+        <FlexItem md={6} className={classes.sliderContainer}>
+          <AwesomeSlider bullets={false} cssModule={AwsSliderStyles}>
+            {sliderImages.map((img, index) => (
+              <Dummy key={`slider-image--${index}`} data-src={img} />
+            ))}
+          </AwesomeSlider>
+        </FlexItem>
+        <FlexItem md={6}>
+          <Flex absoluteCenter className={classes.togetherContainer}>
+            <Text className={classes.together}>
+              We met it was luck, we talked it was chance, we fell in love it
+              was destiny but we stayed together by our choice and constant
+              efforts... because true love isn't found it's built...
+            </Text>
+          </Flex>
+        </FlexItem>
+      </FlexContainer>
     );
   };
 
   renderVenue = () => {
     return (
-      <Flex column>
-        {this.renderSectionTitle('Venue of our wedding')}
-        <Image className={classes.sliderImage} src={venue} />
-      </Flex>
+      <FlexContainer css={{ alignItems: 'center' }}>
+        <FlexItem md={6} className={classes.venueContainer}>
+          <Text className={classes.venue}>Venue of our marriage.</Text>
+          <Text onClick={this.onDirectionClick} className={classes.address}>
+            Block C, Yamuna Vihar, Shahdara, Delhi, 110053
+          </Text>
+        </FlexItem>
+        <FlexItem md={6} css={{ height: '50vh' }}>
+          <Image className={classes.sliderImage} src={venue} />
+        </FlexItem>
+      </FlexContainer>
     );
   };
 
   renderImage = () => (
     <Image className={classes.bannerBackground} src={image} />
   );
-
-  renderMobileView = () => {
-    return (
-      <Flex>
-        {this.renderImage()}
-        <Flex absoluteCenter className={classes.overlay}>
-          {this.renderContent()}
-        </Flex>
-      </Flex>
-    );
-  };
 
   onDirectionClick = () =>
     window
@@ -210,19 +267,19 @@ export default class Index extends PureComponent {
             <FlexItem md={6}>{this.renderImage()}</FlexItem>
           </FlexContainer>
         </Flex>
-        {/*<Flex className={classes.extraContainer}>*/}
-          {/*{this.renderSlider()}*/}
-          {/*<Flex css={{ height: 30 }} />*/}
-          {/*{this.renderVenue()}*/}
+        <Flex className={classes.extraContainer}>
+          {this.renderSectionTitle('Moments to Cherish')}
+          {this.renderSlider()}
+          {this.renderVenue()}
           {/*<Flex absoluteCenter css={{ width: '100%', height: 50 }}>*/}
-            {/*<Text*/}
-              {/*onClick={this.onDirectionClick}*/}
-              {/*className={classes.directions}*/}
-            {/*>*/}
-              {/*Check directions on Google maps*/}
-            {/*</Text>*/}
+          {/*<Text*/}
+          {/*onClick={this.onDirectionClick}*/}
+          {/*className={classes.directions}*/}
+          {/*>*/}
+          {/*Check directions on Google maps*/}
+          {/*</Text>*/}
           {/*</Flex>*/}
-        {/*</Flex>*/}
+        </Flex>
       </Flex>
     );
   }
