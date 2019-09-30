@@ -19,7 +19,6 @@ const image = require('../../resources/kavivek.jpg');
 const venue = require('../../resources/venue.jpg');
 
 const sliderImages = [
-  require('../../resources/slider-1.jpg'),
   require('../../resources/slider-2.jpg'),
   require('../../resources/slider-3.jpg'),
   require('../../resources/slider-4.jpg'),
